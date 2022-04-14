@@ -1,7 +1,8 @@
 import { forwardRef, MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { SecureService } from './secure.service';
-import configuration from './config/configuration';
+import { SecureService } from './utils/secure.service';
+import globals from './config/global.config';
+import pgConfig from './config/postgres-db.config';
 import { DatabaseModule } from './db/db.module';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
@@ -12,7 +13,7 @@ import { LoggerMiddleware } from './middlewares/log-incoming-request.middleware'
 @Module({
 	imports: [
 		ConfigModule.forRoot({
-			load: [configuration],
+			load: [globals, pgConfig],
 		}),
 		DatabaseModule,
 		forwardRef(() => UsersModule),

@@ -1,13 +1,17 @@
-import { CustomLoggerService } from 'src/logger/custom-logger.service';
-import { SecureService } from './../secure.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { CustomLoggerService } from '../logger/custom-logger.service';
+import { SecureService } from '../utils/secure.service';
+import {
+	Injectable,
+	NotFoundException,
+	UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import {
-	USER_WITH_EMAIL_NOT_FOUND_ERROR,
+	USER_WITH_EMAIL_ALREADY_EXISTS_ERROR,
 	USER_WITH_ID_NOT_FOUND_ERROR,
 } from './users.constants';
 
@@ -21,11 +25,15 @@ export class UsersService {
 
 	async create(createUserDto: CreateUserDto): Promise<User> {
 		const user = await this.findOneByEmail(createUserDto.email);
-		console.log(user);
 
 		if (user) {
-			this.logger.warn(USER_WITH_EMAIL_NOT_FOUND_ERROR, this.constructor.name);
-			throw new NotFoundException(USER_WITH_EMAIL_NOT_FOUND_ERROR);
+			this.logger.warn(
+				USER_WITH_EMAIL_ALREADY_EXISTS_ERROR,
+				this.constructor.name,
+			);
+			throw new UnprocessableEntityException(
+				USER_WITH_EMAIL_ALREADY_EXISTS_ERROR,
+			);
 		}
 		return this.userRepository.save({
 			firstName: createUserDto.firstName,
@@ -36,7 +44,7 @@ export class UsersService {
 	}
 
 	async findAll(): Promise<User[]> {
-		return this.userRepository.find({});
+		return this.userRepository.find();
 	}
 
 	async findOneById(id: number): Promise<User> {

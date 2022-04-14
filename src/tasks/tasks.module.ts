@@ -1,5 +1,5 @@
 import { LoggerModule } from './../logger/logger.module';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { UsersModule } from './../users/users.module';
 import { Task } from './entities/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';

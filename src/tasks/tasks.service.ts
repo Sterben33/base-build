@@ -1,4 +1,4 @@
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { UsersService } from './../users/users.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
-import { CustomLoggerService } from 'src/logger/custom-logger.service';
+import { CustomLoggerService } from '../logger/custom-logger.service';
 import {
 	couldNotCreateTaskOfNonExistingUserError as couldNotSaveTaskOfNonExistingUserError,
 	taskDoesNotExistsError,

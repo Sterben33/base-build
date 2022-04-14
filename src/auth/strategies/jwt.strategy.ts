@@ -1,8 +1,9 @@
-import { ACCESS_SECRET } from './../../config/configuration';
+import { ACCESS_SECRET } from '../../config/global.config';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { User } from '../../users/entities/user.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -14,10 +15,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		});
 	}
 
-	validate(payload) {
+	validate(payload: Omit<User, 'passwordHash'>) {
 		return {
-			userId: payload.userId,
-			userEmail: payload.userEmail,
+			id: payload.id,
+			email: payload.email,
+			firstName: payload.firstName,
+			lastName: payload.lastName,
 		};
 	}
 }

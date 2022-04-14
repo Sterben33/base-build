@@ -1,5 +1,6 @@
+import { LoggerModule } from './../logger/logger.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getJWTConfig } from './../config/jwt.config';
+import { getJWTConfig } from './jwt.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './../users/users.module';
 import { Module } from '@nestjs/common';
@@ -19,6 +20,7 @@ import RefreshToken from './entities/refresh-token.entity';
 		}),
 		UsersModule,
 		ConfigModule,
+		LoggerModule,
 	],
 	controllers: [AuthController],
 	providers: [AuthService, JwtStrategy],

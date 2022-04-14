@@ -1,6 +1,6 @@
 import { LoggerModule } from './../logger/logger.module';
 import { AppModule } from './../app.module';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { forwardRef, Module } from '@nestjs/common';
 import { UsersService } from './users.service';

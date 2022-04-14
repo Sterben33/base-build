@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
-import { SALT_ROUNDS } from './config/configuration';
+import { SALT_ROUNDS } from '../config/global.config';
 
 @Injectable()
 export class SecureService {
